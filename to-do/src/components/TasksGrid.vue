@@ -1,7 +1,11 @@
 <template>
   <div class="tasks-grid">
       <template v-if="tasks.length">
-          <task-item v-for="(task, index) in tasks" :key="task.name" :task="task" @deletedTask="$emit('deletedTask', index)"/>
+          <task-item v-for="(task, index) in tasks"
+          :key="task.name"
+          :task="task"
+          @deletedTask="$emit('deletedTask', index)"
+          @taskStateChanged="$emit('taskStateChanged', index)"/>
       </template>
       <p v-else class="no-task">
           Ops, você não possui tarefas cadastradas!!
