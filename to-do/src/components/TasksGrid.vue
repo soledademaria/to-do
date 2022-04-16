@@ -1,8 +1,11 @@
 <template>
   <div class="tasks-grid">
-    <task-item v-for="task in tasks" :key="task.name" :task="tasks"/>
-      
-   
+      <template v-if="tasks.length">
+          <task-item v-for="task in tasks" :key="task.name" :task="task"/>
+      </template>
+      <p v-else class="no-task">
+          Ops, você não possui tarefas cadastradas!!
+      </p>
   </div>
 </template>
 <script>
@@ -25,12 +28,12 @@ export default {
 }
 </script>
 <style>
-    .task-grid{
+    .tasks-grid{
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
     }
-    .task-grid .task{
+    .tasks-grid .task{
         margin: 10px;
     }
     .no-task{
