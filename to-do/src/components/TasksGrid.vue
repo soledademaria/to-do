@@ -1,7 +1,7 @@
 <template>
   <div class="tasks-grid">
       <template v-if="tasks.length">
-          <task-item v-for="task in tasks" :key="task.name" :task="task"/>
+          <task-item v-for="(task, index) in tasks" :key="task.name" :task="task" @deletedTask="$emit('deletedTask', index)"/>
       </template>
       <p v-else class="no-task">
           Ops, você não possui tarefas cadastradas!!
@@ -12,19 +12,19 @@
 import TaskItem from './TaskItem.vue'
 export default {
     components: {TaskItem},
-    // props: {
-    //     tasks: {type: Array, required: true}
-    // },
-    data(){
-        return{
-            tasks: [
-                {name: 'Lavar a louça', pending: true},
-                {name: 'Limpar a casa', pending: false},
-                {name: 'Preparar o almoço', pending: true},
-                {name: 'Terminar leitura', pending: true}
-            ]
-        }
-    }
+     props: {
+         tasks: {type: Array, required: true}
+     },
+    // data(){
+    //     return{
+    //         tasks: [
+    //             {name: 'Lavar a louça', pending: true},
+    //             {name: 'Limpar a casa', pending: false},
+    //             {name: 'Preparar o almoço', pending: true},
+    //             {name: 'Terminar leitura', pending: true}
+    //         ]
+    //     }
+    // }
 }
 </script>
 <style>
