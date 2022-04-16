@@ -1,21 +1,40 @@
 <template>
   <div id="app">
     <h1>My Tasks</h1>
-    <tasks-grid/>
+	<new-task @taskAdded="addTask"/>
+    <tasks-grid :tasks="tasks" @deletedTask="deleteTask"/>
   </div>
 </template>
 
 <script>
 
 import TasksGrid from './components/TasksGrid.vue'
+import NewTask from './components/NewTask.vue'
 export default {
   name: 'App',
-  components:{TasksGrid},
+  components:{TasksGrid, NewTask},
 
   data(){
     return{
       tasks: []
     }
+  },
+  methods:{
+	addTask(task){
+		const sameName = item => item.name === task.name
+
+		const reallyNew = this.tasks.filter(sameName).length == 0
+
+		if(reallyNew){
+			this.tasks.push({
+				name: task.name,
+				pending: task.pending || true
+			})
+		}
+	},
+	deleteTask(index){
+		this.tasks.splice(index, 1)
+	}
   }
 }
 </script>
