@@ -33,7 +33,15 @@ export default {
 			
 		return Math.round(done / total * 100) || 0
 	}
-},
+	},
+	watch:{
+		tasks: {
+			deep: true,
+			handler(){
+				localStorage.setItem('tasks', JSON.stringify(this.tasks))
+			}
+		}
+	},
   methods:{
 	addTask(task){
 		const sameName = item => item.name === task.name
@@ -53,7 +61,11 @@ export default {
 	toogleTaskState(index){
 		this.tasks[index].pending = !this.tasks[index].pending
 	}
-  }
+  },
+  created(){
+	const json = localStorage.getItem('tasks')
+	this.tasks = JSON.parse(json) || []
+}
 }
 </script>
 
